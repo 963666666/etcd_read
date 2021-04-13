@@ -1,0 +1,5 @@
+package raftpb
+
+func Hello() {
+
+}

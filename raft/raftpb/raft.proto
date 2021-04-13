@@ -1,0 +1,18 @@
+syntax = "proto2";
+package raftpb;
+
+import "gogoproto/gogo.proto";
+
+option (gogoproto.marshaler_all) = true;
+option (gogoproto.sizer_all) = true;
+option (gogoproto.unmarshaler_all) = true;
+option (gogoproto.goproto_getters_all) = false;
+option (gogoproto.goproto_enum_prefix_all) = false;
+
+message Message {
+  optional MessageType type = 1 [(gogoproto.nullable) = false]; // 消息类型
+  optional uint64 to = 2 [(gogoproto.nullable) = false];        // 消息接收者的节点ID
+  optional uint64 from = 3 [(gogoproto.nullable) = false];      // 消息发送者的节点ID
+  optional uint64 term = 4 [(gogoproto.nullable) = false];       // 任期 ID
+
+}

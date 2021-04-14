@@ -8,4 +8,10 @@ type Cluster interface {
 	MemberAdd(ctx context.Context)
 
 	MemberAddAsLearner(ctx context.Context)
+
+	MemberRemove(ctx context.Context)
+
+	MemberUpdate(ctx context.Context)
+
+	MemberPromote(ctx context.Context)
 }

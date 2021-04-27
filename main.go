@@ -1,1 +1,1 @@
-package etcd_read
+package main

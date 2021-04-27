@@ -106,8 +106,5 @@ func newClient(cfg *Config) (*Client, error) {
 		return nil, fmt.Errorf("at least one Endpoints is required in client config")
 	}
 
-	conn, err := client.dail
-
-
 	return client, nil
 }

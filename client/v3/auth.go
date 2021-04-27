@@ -37,7 +37,6 @@ type Auth interface {
 }
 
 type authClient struct {
-
 }
 
 func NewAuth(c *Client) Auth {

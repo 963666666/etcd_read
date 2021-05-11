@@ -57,14 +57,14 @@ func newClient(cfg *Config) (*Client, error) {
 
 	ctx, cancel := context.WithCancel(baseCtx)
 	client := &Client{
-		conn:  nil,
-		cfg:   *cfg,
-		creds: creds,
-		ctx:   ctx,
-		cancel: cancel,
-		mu: new(sync.RWMutex),
+		conn:     nil,
+		cfg:      *cfg,
+		creds:    creds,
+		ctx:      ctx,
+		cancel:   cancel,
+		mu:       new(sync.RWMutex),
 		callOpts: defaultCallOpts,
-		lgMu: new(sync.RWMutex),
+		lgMu:     new(sync.RWMutex),
 	}
 
 	lcfg := logutil.DefaultZapLoggerConfig

@@ -50,7 +50,7 @@ func (r *EtcdManualResolver) updateState() {
 			addresses[i] = resolver.Address{Addr: addr, ServerName: serverName}
 		}
 		state := resolver.State{
-			Addresses: addresses,
+			Addresses:     addresses,
 			ServiceConfig: r.serviceConfig,
 		}
 		r.UpdateState(state)

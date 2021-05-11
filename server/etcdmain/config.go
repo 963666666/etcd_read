@@ -3,8 +3,8 @@ package etcdmain
 import "etcd_read/server/embed"
 
 type config struct {
-	ec embed.Config
-	configFile string
+	ec           embed.Config
+	configFile   string
 	printVersion bool
 }
 

@@ -1,11 +1,13 @@
 #!/usr/bin/env bash
 set -e
 
+
+
 function hello {
   local tool="$1"
   local nowExit="$0"
-  echo ${nowExit}
-  echo ${tool}
+  echo "echo dengdeng" ${nowExit}
+  echo "hello world" ${tool}
 }
 
 RESULT=$(hello world)

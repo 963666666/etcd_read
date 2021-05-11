@@ -11,27 +11,27 @@ var DefaultZapLoggerConfig = zap.Config{
 
 	Development: true,
 	Sampling: &zap.SamplingConfig{
-		Initial: 100,
+		Initial:    100,
 		Thereafter: 100,
 	},
 
 	Encoding: "json",
 
 	EncoderConfig: zapcore.EncoderConfig{
-		TimeKey: "ts",
-		LevelKey: "level",
-		NameKey: "logger",
-		CallerKey: "caller",
-		MessageKey: "msg",
-		StacktraceKey: "stacktrace",
-		LineEnding: zapcore.DefaultLineEnding,
-		EncodeLevel: zapcore.LowercaseLevelEncoder,
-		EncodeTime: zapcore.ISO8601TimeEncoder,
+		TimeKey:        "ts",
+		LevelKey:       "level",
+		NameKey:        "logger",
+		CallerKey:      "caller",
+		MessageKey:     "msg",
+		StacktraceKey:  "stacktrace",
+		LineEnding:     zapcore.DefaultLineEnding,
+		EncodeLevel:    zapcore.LowercaseLevelEncoder,
+		EncodeTime:     zapcore.ISO8601TimeEncoder,
 		EncodeDuration: zapcore.StringDurationEncoder,
-		EncodeCaller: zapcore.ShortCallerEncoder,
+		EncodeCaller:   zapcore.ShortCallerEncoder,
 	},
 
-	OutputPaths: []string{"stderr"},
+	OutputPaths:      []string{"stderr"},
 	ErrorOutputPaths: []string{"stderr"},
 }
 
@@ -44,7 +44,7 @@ func MergeOutputPaths(cfg zap.Config) zap.Config {
 	outputSlice := make([]string, 0)
 	if _, ok := outputs["/dev/null"]; ok {
 		outputSlice = []string{"/dev/null"}
-	}else {
+	} else {
 		for k := range outputs {
 			outputSlice = append(outputSlice, k)
 		}
@@ -59,7 +59,7 @@ func MergeOutputPaths(cfg zap.Config) zap.Config {
 	errOutputSlice := make([]string, 0)
 	if _, ok := errOutputs["/dev/null"]; ok {
 		errOutputs["/dev/null"] = struct{}{}
-	}else {
+	} else {
 		for k := range errOutputs {
 			errOutputSlice = append(errOutputSlice, k)
 		}

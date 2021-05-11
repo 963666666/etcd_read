@@ -15,5 +15,5 @@ type Bundle interface {
 }
 
 func NewBundle(cfg Config) Bundle {
-	;return nil
+	return nil
 }

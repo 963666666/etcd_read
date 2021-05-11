@@ -9,6 +9,4 @@ type raft struct {
 
 	Term uint64
 	Vote uint64
-
-
 }

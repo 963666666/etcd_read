@@ -8,7 +8,7 @@ if [[ "$(go list)" != "${ROOT_MODULE}" ]]; then
 fi
 
 function set_root_dir {
-  ETCD_ROOT_DIR=$(go list -f '{{.Dir}}' "${ROOT_MODULE}/v3")
+  ETCD_ROOT_DIR=$(go list -f '{{.Dir}}' "${ROOT_MODULE}")
 }
 
 set_root_dir
@@ -72,7 +72,7 @@ function relativePath {
   local result=""
 
   while [[ "${target#$commonPart}" == "${target}" ]]; do
-    # no match, means that candidate common part is not correct
+    # no match, means that candidate common part is not tool_get_bincorrect
     # go up one level (reduce common part)
     commonPart="$(dirname "$commonPart")"
     # and record that we went back, with correct / handling

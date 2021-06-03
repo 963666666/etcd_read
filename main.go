@@ -2,34 +2,77 @@ package main
 
 import (
 	"fmt"
+	"hash/crc32"
+	"strconv"
+	"sync"
 	"time"
 )
 
-func main() {
-	requests := []int{12, 2, 3, 41, 5, 6, 1, 12, 3, 4, 2, 31}
-	for _, request := range requests {
-		go run(request) //开启多个协程
-	}
-
-	ch := make(chan struct{})
-	go func(a chan struct{}) {
-		time.Sleep(5 * time.Second)
-		a <- struct{}{}
-	}(ch)
-	select {
-	case <-ch:
-
-	}
+type TimerManager struct {
+	manager map[int64]*time.Timer
+	mu      sync.Mutex
 }
 
-func run(num int) {
-	defer func() {
-		if err := recover();err != nil {
-			fmt.Printf("%s\n", err)
+type AgeInt int
+
+type UserInfo struct {
+	Name string
+	Age  AgeInt
+	Tm   *TimerManager
+}
+
+func main() {
+	u := new(UserInfo)
+
+	u.Tm = new(TimerManager)
+	fmt.Printf("hello : %v\n", u.Tm)
+}
+
+func mainHash() {
+	for i := 0; i < 100; i++ {
+		token := strconv.Itoa(i)
+		hashCode := int(crc32.ChecksumIEEE([]byte(token)))
+		if hashCode < 0 {
+			hashCode = -hashCode
 		}
-	}()
-	if num%5 == 0 {
-		panic("请求出错la")
+
+		fmt.Println(hashCode % 20)
 	}
-	fmt.Printf("%d beng sha ka la ka !\n", num)
+
+}
+
+func (tm *TimerManager) AddTimer(name int64) error {
+	timeFunc := func() {
+		fmt.Println("hello name: ", name)
+	}
+
+	timer := time.AfterFunc(5*time.Second, timeFunc)
+
+	tm.mu.Lock()
+	tm.manager[name] = timer
+	tm.mu.Unlock()
+
+	return nil
+}
+
+func (tm *TimerManager) DelTimer(name int64) error {
+	if timer, ok := tm.manager[name]; ok {
+		timer.Stop()
+	}
+
+	tm.mu.Lock()
+	delete(tm.manager, name)
+	tm.mu.Unlock()
+
+	return nil
+}
+
+func (tm *TimerManager) GetAllTimer() []*time.Timer {
+	allTimer := []*time.Timer{}
+
+	for _, timer := range tm.manager {
+		allTimer = append(allTimer, timer)
+	}
+
+	return allTimer
 }
